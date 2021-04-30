@@ -16,14 +16,24 @@ import matplotlib.pyplot as plt
 folder='data_sim'
 file='res{0}'
 
-md0=list()
-for k in range(1,257):
-    if os.path.exists(os.path.join(folder,file.format(k))):
-        md0.append(DR.io.load_DIFRATE(os.path.join(folder,file.format(k))))
 
+file_avg='avg'
 
-md=DR.tools.avg_data(md0)       #Average over all molecule copies
-
+if os.path.exists(os.path.join(folder,file_avg)):        
+    #If all 256 files were already averaged, just load the result
+    md=DR.io.load_DIFRATE(os.path.join(folder,file_avg.format(256)))
+else: 
+    md0=list()
+    counter=0
+    for k in range(1,257):
+        if os.path.exists(os.path.join(folder,file.format(k))):
+            md0.append(DR.io.load_DIFRATE(os.path.join(folder,file.format(k))))
+            counter+=1 #Count up how many files get loaded
+    
+    md=DR.tools.avg_data(md0)       #Average over all molecule copies
+    if counter==256:
+        #Save the results if all 256 copies are included
+        md.save(os.path.join(folder,file_avg))
 #%% Optimize detectors to match experimental detectors
 target=DR.io.load_DIFRATE('exper_sens')  #Experimental detector sensitivities
 target[0,170:]=0               #We eliminate very slow motions here, that our trajectory cannot reasonably estimate
@@ -53,10 +63,10 @@ mdfitCO=mdCO.fit()  #Fit the C=O data
 "Fill in CO data back into original data object (18 and 50 are positions of CO)"
 mdfit.R[18,0]=mdfitCO.R[0,0]        #rho0
 mdfit.R[18,2:]=mdfitCO.R[0,1:-1]    #rho2-rho5
-mdfit.R[50,0]=mdfitCO.R[1,0]        #same as above
+mdfit.R[50,0]=mdfitCO.R[1,0]        #same as above, for second C0
 mdfit.R[50,2:]=mdfitCO.R[1,1:-1]
-mdfit.R_std[6,0]=mdfitCO.R_std[0,0]    
-mdfit.R_std[6,2:]=mdfitCO.R_std[0,1:-1]
+mdfit.R_std[18,0]=mdfitCO.R_std[0,0]    
+mdfit.R_std[18,2:]=mdfitCO.R_std[0,1:-1]
 mdfit.R_std[50,0]=mdfitCO.R_std[1,0]    
 mdfit.R_std[50,2:]=mdfitCO.R_std[1,1:-1]
 mdfit.R[18,1]=0     #Set rho1 to 0
