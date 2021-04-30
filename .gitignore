@@ -1,2 +1,9 @@
 data_sim/r
 data_sim/res*
+data_frames/ct_res*
+data_frames/ctp_res*
+data_frames/f0_res*
+data_frames/f1_res*
+data_frames/f2_res*
+data_frames/f3_res*
+data_frames/r
