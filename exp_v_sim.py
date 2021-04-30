@@ -10,6 +10,7 @@ import pyDIFRATE as DR
 import os
 import numpy as np
 from lipid_selections import avg_equiv
+import matplotlib.pyplot as plt
 
 #%% Load in partially processed simulated data
 folder='data_sim'
@@ -63,6 +64,8 @@ mdfit.R[50,1]=0
 mdfit.R_std[18,1]=0
 mdfit.R_std[50,1]=0
 
+mdfit.save('fit_md')    #We need this later for making 3D plots
+
 "Average over equivalent H–C bonds"
 mdfita=avg_equiv(mdfit)
 
@@ -86,27 +89,19 @@ md_avg.R_std=R_std
 
 
 #%% Plot the results
-ax=fit.plot_rho(errorbars=True)
-ax0=ax[0].figure.get_children()[1]
-md_avg.sens.plot_rhoz(rho_index=range(5),ax=ax0,color='grey')
+fit=DR.io.load_DIFRATE('fit_exper') #Load the experimental data
 
-ylims=[[0,1],[0,.65],[0,.65],[0,.65],[0,.0012],[0,.0012]]
+ax=fit.plot_rho(errorbars=True)     #Plot the experimental data
+ax0=ax[0].figure.get_children()[1]  #Get the axis for the sensitivity plot
+md_avg.sens.plot_rhoz(rho_index=range(5),ax=ax0,color='grey') #Plot the MD-derived sensitivity over the experimental sensitivity
 
-x0=np.arange(md_avg.R.shape[0])
-for k,(a,ylim) in enumerate(zip(ax,ylims)):
-    if k<4:
+ylims=[[0,1],[0,.65],[0,.65],[0,.65],[0,.0012],[0,.0012]]   #Y-limits to make the plots nicer
+
+x0=np.arange(md_avg.R.shape[0])     #x-axis
+for k,(a,ylim) in enumerate(zip(ax,ylims)):     #Loop over the detectors
+    if k<4:     #We only compare the sub-microsecond motions
         y0=md_avg.R[:,k]
         a.plot(x0,y0,color='black')
-        x=np.concatenate((x0,x0[::-1]))
-        y=np.concatenate((y0+md_avg.R_std[:,k],y0[::-1]-md_avg.R_std[::-1,k]))
-        patch=Polygon(np.concatenate(([x],[y]),axis=0).T,facecolor='grey',alpha=0.5)
-        a.add_patch(patch)
-    elif k==4:
-        y0=md_avg.R[:,k]
-        a.plot(x0,y0/100,color='black')
-        
     a.set_ylim(ylim)
     
-    
-for a in ax[-2:]:
-    a.set_ylim([0,.001])
+plt.show()    
