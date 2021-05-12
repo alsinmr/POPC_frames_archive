@@ -1,9 +1,35 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+This file is part of POPC frames archive (PFA).
+
+PFA is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+PFA is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with PFA.  If not, see <https://www.gnu.org/licenses/>.
+
+
+Questions, contact me at:
+albert.smith-penzel@medizin.uni-leipzig.de
+
+
+
 Created on Fri Oct 25 15:50:49 2019
 
 @author: albertsmith
+"""
+
+"""
+A collection of useful functions for selected particular parts of the POPC 
+molecule.
 """
 import numpy as np
 
@@ -352,7 +378,9 @@ def get_ltx_labels(equiv=True,overlay=False):
     Unfinished: this is the desired behavior for equiv=Ture, overlay=True
     """
     
-    labels=[r'$\alpha$',r'$\beta',r'$\gamma',r'g$_3$',r'g$_2$',r'g$_1$',\
+    labels=[r'$\alpha$',r'$\beta$',r'$\gamma$',r'g$_3$',r'g$_2$',r'g$_1$',\
             '1','2','3\n1','4\n2','5\n3','6\n4','7\n5','8\n6','9\n7','10\n8',\
             '11\n9','12\n10','13\n11','14\n12','15\n13','16\n14','17\n15','18\n16']
+    
+    return labels
     

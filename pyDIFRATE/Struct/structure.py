@@ -1,6 +1,27 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+This file is part of pyDIFRATE (POPC frames archive pre-release).
+
+pyDIFRATE is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+pyDIFRATE is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with pyDIFRATE.  If not, see <https://www.gnu.org/licenses/>.
+
+
+Questions, contact me at:
+albert.smith-penzel@medizin.uni-leipzig.de
+
+
+
 Created on Thu Apr  4 15:05:19 2019
 
 @author: albertsmith
@@ -199,63 +220,6 @@ class molecule(object):
                     
             self.label=label
             
-#    def select_atoms(self,sel1=None,sel2=None,sel1in=None,sel2in=None,Nuc=None,resi=None,select=None,**kwargs):
-#        
-#        
-#        
-#        if select is not None:
-#            sel=self.mda_object.select_atoms(select)
-#        else:
-#            sel=self.mda_object.atoms
-#            
-#        if resi is not None:
-#            string=''
-#            for res in resi:
-#                string=string+'resid {0:.0f} or '.format(res)
-#            string=string[0:-4]
-#            sel=sel.select_atoms(string)
-#        
-#        if Nuc is not None:
-#            if Nuc.lower()=='15n' or Nuc.lower()=='n':                    
-#                self.sel1=sel.select_atoms('(name H or name HN) and around 1.1 name N')
-#                self.sel2=sel.select_atoms('name N and around 1.1 (name H or name HN)')
-#            elif Nuc.lower()=='co':
-#                self.sel1=sel.select_atoms('name C and around 1.4 name O')
-#                self.sel2=sel.select_atoms('name O and around 1.4 name C')
-#            elif Nuc.lower()=='ca':
-#                self.sel1=sel.select_atoms('name CA and around 1.4 (name HA or name HA2)')
-#                self.sel2=sel.select_atoms('(name HA or name HA2) and around 1.4 name CA')
-#                print('Warning: selecting HA2 for glycines. Use manual selection to get HA1 or both bonds')
-##            self.label_in=self.sel1.resids           
-#            self.label_in=self.sel1.resnums                     
-#        else:
-#            if sel1!=None:
-##                if index1!=None:
-##                    self.sel1=sel.select_atoms(sel1)[index1]
-##                else:
-##                    self.sel1=sel.select_atoms(sel1)
-#                self.sel1=sel.select_atoms(sel1)
-#            if sel2!=None:
-##                if index2!=None:
-##                    self.sel2=sel.select_atoms(sel2)[index2]
-##                else:
-##                    self.sel2=sel.select_atoms(sel2)
-#                self.sel2=sel.select_atoms(sel2)
-#              
-#            "I'm gradually eliminating any use of sel1in and sel2in, and replacing using this approach"
-#            "This also makes index1 and index2 redundant"
-#            if sel1in is not None:
-##                self.sel1in=sel1in  
-#                self.sel1=self.sel1[sel1in]
-#            if sel2in is not None:
-##                self.sel2in=sel2in
-#                self.sel2=self.sel2[sel2in]
-#                
-#        try:
-#            self.set_selection()    #Is this a good idea? Sets the selection, even if the user isn't done
-#        except:
-#            pass
-    
         
     def clear_selection(self):
         self.sel1=None

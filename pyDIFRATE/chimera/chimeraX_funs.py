@@ -1,6 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+This file is part of pyDIFRATE (POPC frames archive pre-release).
+
+pyDIFRATE is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+pyDIFRATE is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with pyDIFRATE.  If not, see <https://www.gnu.org/licenses/>.
+
+
+Questions, contact me at:
+albert.smith-penzel@medizin.uni-leipzig.de
+
+
 Created on Wed Nov 11 15:13:30 2020
 
 @author: albertsmith
@@ -28,6 +48,30 @@ def chimera_path(**kwargs):
         path=f.readline()
     
     return path
+
+def is_chimera_setup():
+    "Determines whether chimeraX executable path has been provided"
+    return os.path.exists(os.path.join(get_path(),'ChimeraX_program_path.txt'))
+
+def clean_up():
+    """Deletes chimera scripts and tensor files that may have been created but 
+    not deleted
+    
+    (Under ideal circumstances, this shouldn't happen, but may occur due to errors)
+    """
+    
+    names=[fn for fn in os.listdir(get_path()) \
+           if fn.startswith('chimera_script') and fn.endswith('.py') and len(fn)==23]
+    
+    tensors=[fn for fn in os.listdir(get_path()) \
+           if fn.startswith('tensors') and fn.endswith('.txt') and len(fn)==18]
+    
+    for n in names:
+        os.remove(os.path.join(get_path(),n))
+    for t in tensors:
+        os.remove(os.path.join(get_path(),t))
+    
+    print('{0} files removed'.format(len(names)+len(tensors)))
 
 def set_chimera_path(path):
     """

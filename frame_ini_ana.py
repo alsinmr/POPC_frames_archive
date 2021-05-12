@@ -1,10 +1,39 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+This file is part of POPC frames archive (PFA).
+
+PFA is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+PFA is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with PFA.  If not, see <https://www.gnu.org/licenses/>.
+
+
+Questions, contact me at:
+albert.smith-penzel@medizin.uni-leipzig.de
+
+
+
 Created on Mon Jul 13 16:28:26 2020
 
 @author: albertsmith
 """
+
+"""
+In this script, we define frames for analysis of the POPC dynamics. We perform 
+an initial analysis (that is, with unoptimized detectors). We obtain unoptimized
+detectors for the total correlation function, the correlation functions of
+individual motions, and the product of those correlation functions.
+"""
+
 
 import numpy as np
 import os
@@ -17,10 +46,10 @@ ef=DR.frames #Frames module
 nd=20   #Number of detectors for initial save
 
 #%% Load the MD trajectory (here use the 256 spins)
-dcd='/Volumes/My Book/MD_256/step6.6_equilibration.gro'     #Path to the topology file
-psf0='/Volumes/My Book/MD_256/run1.part{0:04d}.xtc'        #Path to the xtc (position) files
-psf=[psf0.format(i) for i in range(2,140)]
-mol=DR.molecule(dcd,psf)
+top='/Volumes/My Book/MD_256/step6.6_equilibration.gro'     #Path to the topology file
+pos0='/Volumes/My Book/MD_256/run1.part{0:04d}.xtc'        #Path to the xtc (position) files
+pos=[pos0.format(i) for i in range(2,140)]
+mol=DR.molecule(top,pos)
 
 
 nf=4    #Number of frames
@@ -31,6 +60,10 @@ file_fr='f{0}_res{1}'
 file_ct='ct_res{0}'
 file_ctp='ctp_res{0}'
 
+file_fr_avg='f{0}_avg'
+file_ct_avg='ct_avg'
+file_ctp_avg='ctp_avg'
+
 ct=list()   #Store the directly calculated correlation function detector ana
 ctp=list()  #Store the product of correlation functions detector ana
 frames=list()   #Store detector ana of frames
@@ -40,6 +73,7 @@ v=None
 
 
 r=None
+
 
 for res in range(1,101):
     if os.path.exists(os.path.join(folder,file_fr.format(nf-1,res))):
@@ -129,3 +163,11 @@ for res in range(1,101):
         
         print(res)
 
+#%% Average the data and store the result
+cta0=DR.tools.avg_data(ct)     
+ctpa0=DR.tools.avg_data(ctp)     
+fFa0=[DR.tools.avg_data([f[k] for f in frames]) for k in range(nf)]
+
+cta0.save(os.path.join(folder,file_ct_avg))
+ctpa0.save(os.path.join(folder,file_ctp_avg))
+for k,f in enumerate(fFa0):f.save(os.path.join(folder,file_fr_avg.format(k)))

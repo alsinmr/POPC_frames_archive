@@ -1,6 +1,26 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+This file is part of POPC frames archive (PFA).
+
+PFA is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+PFA is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with PFA.  If not, see <https://www.gnu.org/licenses/>.
+
+
+Questions, contact me at:
+albert.smith-penzel@medizin.uni-leipzig.de
+
+
 Created on Thu Apr 29 15:21:10 2021
 
 @author: albertsmith
@@ -25,13 +45,13 @@ from lipid_selections import sel_res
 
 
 #%% Set up for loading MD data
-dcd='/Volumes/My Book/MD_256/step6.6_equilibration.gro'     #Path to the topology file
-psf0='/Volumes/My Book/MD_256/run1.part{0:04d}.xtc'         #Path to the xtc (position) files
+top='/Volumes/My Book/MD_256/step6.6_equilibration.gro'     #Path to the topology file
+pos0='/Volumes/My Book/MD_256/run1.part{0:04d}.xtc'         #Path to the xtc (position) files
 
 fi=np.arange(2,140)                 #Indices of the xtc files to use
-psf=[psf0.format(k) for k in fi]    #List of all xtc files
+pos=[pos0.format(k) for k in fi]    #List of all xtc files
 
-mol=DR.molecule(dcd,psf)         #Load trajectory
+mol=DR.molecule(top,pos)         #Load trajectory
 """Mol contains a trajectory object, which allows iteration over the full trajectory.
 It also contains attributes sel1 and sel2, which correspond to the list of atoms
 that define bonds in the molecule. sel1 and sel2 have attributes "positions", 

@@ -1,6 +1,27 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+This file is part of pyDIFRATE (POPC frames archive pre-release).
+
+pyDIFRATE is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+pyDIFRATE is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with pyDIFRATE.  If not, see <https://www.gnu.org/licenses/>.
+
+
+Questions, contact me at:
+albert.smith-penzel@medizin.uni-leipzig.de
+
+
+
 Created on Wed Jul 31 16:37:08 2019
 
 @author: albertsmith
@@ -53,28 +74,34 @@ def save_DIFRATE(filename,obj):
     
     if hasattr(obj,'copy'):
         obj=obj.copy()
-    
+        
+    re_mda=False
     if hasattr(obj,'sens') and hasattr(obj,'detect'):
-        if obj.sens is not None and obj.sens.molecule is not None:
+        if obj.sens is not None and obj.sens.molecule is not None and obj.sens.molecule.mda_object is not None:
             obj.sens.molecule.del_MDA_object()
-        if obj.detect is not None and obj.detect.molecule is not None:
+            re_mda=True
+        if obj.detect is not None and obj.detect.molecule is not None and obj.detect.molecule.mda_object is not None:
             obj.detect.molecule.del_MDA_object()
-    elif hasattr(obj,'molecule'):
+            re_mda=True
+    elif hasattr(obj,'molecule') and obj.molecule.mda_object is not None:
         obj.molecule.del_MDA_object()
-    elif hasattr(obj,'mda_object'):
+        re_mda=True
+    elif hasattr(obj,'mda_object') and obj.mda_object is not None:
+        re_mda=True
         obj.del_MDA_object()        
     
     save_bin(filename,obj)
     
-    if hasattr(obj,'sens') and hasattr(obj,'detect'):
-        if obj.sens is not None and obj.sens.molecule is not None:
-            obj.sens.molecule.reload_MDA()
-        if obj.detect is not None and obj.detect.molecule is not None:
-            obj.detect.molecule.reload_MDA()
-    elif hasattr(obj,'molecule'):
-        obj.molecule.reload_MDA()
-    elif hasattr(obj,'mda_object'):
-        obj.reload_MDA()
+    if re_mda:
+        if hasattr(obj,'sens') and hasattr(obj,'detect'):
+            if obj.sens is not None and obj.sens.molecule is not None:
+                obj.sens.molecule.reload_MDA()
+            if obj.detect is not None and obj.detect.molecule is not None:
+                obj.detect.molecule.reload_MDA()
+        elif hasattr(obj,'molecule'):
+            obj.molecule.reload_MDA()
+        elif hasattr(obj,'mda_object'):
+            obj.reload_MDA()
     
     
 def load_DIFRATE(filename):

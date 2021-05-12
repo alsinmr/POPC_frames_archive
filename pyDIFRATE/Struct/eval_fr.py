@@ -1,6 +1,27 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+This file is part of pyDIFRATE (POPC frames archive pre-release).
+
+pyDIFRATE is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+pyDIFRATE is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with pyDIFRATE.  If not, see <https://www.gnu.org/licenses/>.
+
+
+Questions, contact me at:
+albert.smith-penzel@medizin.uni-leipzig.de
+
+
+
 Created on Tue Oct  6 10:46:10 2020
 
 @author: albertsmith
@@ -34,6 +55,16 @@ def frames2data(mol=None,v=None,n=100,nr=10,tf=None,dt=None):
             d.detect.molecule=mol
     
     return out
+
+def frames2tensors(mol=None,v=None,n=100,nr=10,tf=None,dt=None):
+    """
+    Calculates the various residual tensors for a set of frames, returned in a
+    dictionary object. (This function is simply running frames2ct with 
+    return_index set to True only for the time-independent terms)
+    """
+    return_index=[False,False,False,False,True,True,True,False,False,True]
+    
+    return frames2ct(mol=mol,v=v,return_index=return_index,n=n,nr=nr,tf=tf,dt=dt)
 
 def ct2data(ct_out):
     """
@@ -265,6 +296,7 @@ def frames2ct(mol=None,v=None,return_index=None,n=100,nr=10,tf=None,dt=None):
         A_m0_finF=np.array(A_m0_finF)
     elif ri[4] or ri[5]:
         "Calculate A_m0_finF if requested, or A_0m_finF requested"
+        A_m0_finF=list()
         for k in range(nf+1):
             if k==0:
                 b=Ct_D2inf(vZ=vZ,vXZ=vXZ,nuZ_F=nuZ[k],nuXZ_F=nuXZ[k],cmpt='m0',mode='d2',index=index)

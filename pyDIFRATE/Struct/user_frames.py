@@ -1,6 +1,27 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+This file is part of pyDIFRATE (POPC frames archive pre-release).
+
+pyDIFRATE is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+pyDIFRATE is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with pyDIFRATE.  If not, see <https://www.gnu.org/licenses/>.
+
+
+Questions, contact me at:
+albert.smith-penzel@medizin.uni-leipzig.de
+
+
+
 Created on Thu Feb  6 10:45:12 2020
 
 @author: albertsmith
@@ -22,8 +43,7 @@ frames.py. A few critical points:
     it is defined by some 3D object, say the peptide plane, then two vectors 
     should be returned)
     5) Each vector returned should be a numpy array, with dimensions 3xN. The
-    rows corresponds to directions x,y,z. The vectors do not need to be normalized
-    
+    rows corresponds to directions x,y,z. The vectors do not need to be normalized    
     6) Be careful of factors like periodic boundary conditions, etc. In case of
     user frames and in the built-in definitions (frames.py) having the same name,
     user frames will be given priority.
