@@ -11,12 +11,13 @@ The main script is POPC_full_ana.py, which will execute in sequence the analysis
 of NMR experimental data, followed by analysis of MD simulated data for
 comparison, including plotting (exp_v_sim.py).
 
-Several external python modules are required (in addition to the standard libraries)
-numpy
-scipy
-pandas
-MDAnalysis
-matplotlib
+Several external python modules are required (in addition to the standard libraries):
+
+numpy,
+scipy,
+pandas,
+MDAnalysis,
+matplotlib,
 cv2 (for Landscape plotting)
 
 Visualization makes use of ChimeraX, which must be installed on the user's
