@@ -13,11 +13,11 @@ comparison, including plotting (exp_v_sim.py).
 
 Several external python modules are required (in addition to the standard libraries):
 
-numpy
-scipy
-pandas
-MDAnalysis
-matplotlib
+numpy,
+scipy,
+pandas,
+MDAnalysis,
+matplotlib,
 cv2 (for Landscape plotting)
 
 Visualization makes use of ChimeraX, which must be installed on the user's
