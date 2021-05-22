@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
+Copyright 2021 Albert Smith-Penzel
+
 This file is part of POPC frames archive (PFA).
 
 PFA is free software: you can redistribute it and/or modify

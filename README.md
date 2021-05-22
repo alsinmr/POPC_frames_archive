@@ -26,3 +26,5 @@ be provided, by running pyDIFRATE.chimeraX.set_chimera_path(path) (only needs to
 once).
 
 All files are copyrighted under the GNU General Public License. A copy of the license has been provided in the file LICENSE
+
+Copyright 2021 Albert Smith-Penzel

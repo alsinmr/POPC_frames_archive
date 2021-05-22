@@ -7,3 +7,5 @@ data_frames/f1_res*
 data_frames/f2_res*
 data_frames/f3_res*
 data_frames/r
+pyDIFRATE/chimera/ChimeraX_program_path.txt
+pyDIFRATE/chimera/chimera_script*.py
