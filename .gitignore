@@ -9,3 +9,4 @@ data_frames/f3_res*
 data_frames/r
 pyDIFRATE/chimera/ChimeraX_program_path.txt
 pyDIFRATE/chimera/chimera_script*.py
+*.py[co]

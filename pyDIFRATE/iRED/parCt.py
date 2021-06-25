@@ -73,8 +73,8 @@ class par_class():
         ct=np.zeros([index[-1]+1,np.shape(X)[1]])
         
         for k in range(n):
-            ct[index[k:]-index[k]]+=(3*(np.multiply(X[k:],X[k])+np.multiply(Y[k:],Y[k])\
-                 +np.multiply(Z[k:],Z[k]))**2-1)/2
+            ct[index[k:]-index[k]]+=((np.multiply(X[k:],X[k])+np.multiply(Y[k:],Y[k])\
+                 +np.multiply(Z[k:],Z[k]))**2)
         
         "Store results of correlation function calculation"
 #        cls.storeCt(i,ct)
@@ -153,7 +153,7 @@ class par_class():
             N=np.repeat([N0],np.shape(c)[1],axis=0).T
             ct0[:,range(k,nb,nk)]=np.divide(c[nz],N)
     
-        return ct0
+        return 3/2*ct0-1/2
     
     @classmethod
     def clear_data(cls,ref_num):
