@@ -121,9 +121,9 @@ def bond(molecule,sel1=None,sel2=None,sel3=None,Nuc=None,resids=None,segids=None
         
     if isinstance(sel3,str) and sel3=='auto':
         uni=sel1.universe
-        resids=np.unique(sel2.resids)
+        resids=np.unique(sel1.resids)
         sel0=uni.residues[np.isin(uni.residues.resids,resids)].atoms
-        sel3=selt.find_bonded(sel1,sel0,exclude=sel2,n=1,sort='cchain')[0]
+        sel3=selt.find_bonded(sel2,sel0,exclude=sel1,n=1,sort='cchain')[0]
     elif sel3 is not None:
         sel3=selt.sel_simple(molecule,sel3,resids,segids,filter_str)
     

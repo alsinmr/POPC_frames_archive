@@ -13,14 +13,14 @@ comparison, including plotting (exp_v_sim.py).
 
 Several external python modules are required (in addition to the standard libraries):
 
-numpy,
-scipy,
-pandas,
-MDAnalysis,
-matplotlib,
-cv2 (for Landscape plotting)
+numpy v. 1.17.2,
+scipy v. 1.3.0,
+pandas v. 0.25.1,
+MDAnalysis v. 0.19.2,
+matplotlib v. 3.0.3,
+cv2 v. 4.1.0 (for Landscape plotting)
 
-Visualization makes use of ChimeraX, which must be installed on the user's
+Visualization makes use of ChimeraX (v. 1.0), which must be installed on the user's
 system (https://www.rbvi.ucsf.edu/chimerax/). The path to the executable must
 be provided, by running pyDIFRATE.chimeraX.set_chimera_path(path) (only needs to be run
 once).

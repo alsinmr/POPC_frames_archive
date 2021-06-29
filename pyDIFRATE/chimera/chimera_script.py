@@ -82183,4 +82183,4 @@ except:
 	print("ChimeraX script failed")
 	rc(session,"ui tool show Log")
 finally:
-	os.remove("/Users/albertsmith/Documents/GitHub/POPC_frames_archive/pyDIFRATE/chimera/chimera_script475571.py")
+	os.remove("/Users/albertsmith/Documents/GitHub/POPC_frames_archive/pyDIFRATE/chimera/chimera_script307366.py")
