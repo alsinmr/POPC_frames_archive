@@ -43,6 +43,9 @@ the initial analysis (and comment out the lines responsible for performing
 the initial analysis). MD trajectory is available upon request
 """
 
+import time
+import pyDIFRATE as DR
+t=time.time()
 
 from runpy import run_path as run
 
@@ -68,7 +71,7 @@ _=run('exp_v_sim.py')
 
 "We combine experimental and simulated analysis to make 3D plots of detector responses"
 #This will only work if you've provided the path to chimeraX, use line below
-#DR.chimeraX.set_chimera_path(path)
+DR.chimeraX.set_chimera_path('SET THIS LINE TO YOUR FULL PATH TO CHIMERAX')
 from bonbon_plots import Bonbon
 for k in range(4):Bonbon(k)
 
@@ -90,7 +93,7 @@ instances of chimeraX). As with the previous bonbon plots, you must first setup
 chimeraX on your system
 """
 from bonbon_frames import Bonbon_fr
-Bonbon_fr(3)   #Select which frame to plot with the index here (0-3)
+Bonbon_fr(2)   #Select which frame to plot with the index here (0-3)
 #for k in range(4):Bonbon(k)     #Or plot all frames: will make 16 instances of ChimeraX!!
 
 """We extract the residual tensors for one copy of POPC. The first step requires
@@ -128,3 +131,5 @@ Setting to 'NMR' will plot the experimentally-refined landscapes, whereas MD wil
 plot the results based on MD data only.
 """
 draw_landscape(None,'NMR')
+
+print(time.time()-t)
