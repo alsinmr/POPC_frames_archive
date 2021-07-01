@@ -90,7 +90,7 @@ instances of chimeraX). As with the previous bonbon plots, you must first setup
 chimeraX on your system
 """
 from bonbon_frames import Bonbon_fr
-Bonbon_fr(2)   #Select which frame to plot with the index here (0-3)
+Bonbon_fr(3)   #Select which frame to plot with the index here (0-3)
 #for k in range(4):Bonbon(k)     #Or plot all frames: will make 16 instances of ChimeraX!!
 
 """We extract the residual tensors for one copy of POPC. The first step requires
